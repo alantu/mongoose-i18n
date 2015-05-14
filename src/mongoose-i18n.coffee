@@ -33,6 +33,8 @@ exports = module.exports = (schema, options) ->
   unless _.isArray(options?.languages)
     throw new TypeError 'Must pass an array of languages.'
 
+  defaultLanguage = options.defaultLanguage || options.languages[0];
+
   schema.eachPath (path, config) ->
     # process if i18n: true
     if config.options.i18n
