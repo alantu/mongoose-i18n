@@ -80,7 +80,7 @@ exports = module.exports = (schema, options) ->
           if Object.keys(options).length is 0
               options = undefined
 
-      ret = Document.prototype.toObject.call(this, options)
+      ret = this.toObject(options)
 
       if translation?
         translateObject(ret, schema, translation)
@@ -103,7 +103,7 @@ exports = module.exports = (schema, options) ->
           if Object.keys(options).length is 0
               options = undefined
 
-      ret = Document.prototype.toJSON.call(this, options)
+      ret = this.toJSON(options)
 
       if translation?
         translateObject(ret, schema, translation)
