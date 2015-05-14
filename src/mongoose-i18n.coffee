@@ -82,14 +82,15 @@ exports = module.exports = (schema, options) ->
           if Object.keys(options).length is 0
               options = undefined
 
-      ret = this.toObject(options)
-
       if translation?
-        translateObject(ret, schema, translation)
+        translation = defaultLanguage
 
-        # translate every populated children objects too
-        for key, populated of this.$__.populated
-          translateObject(ret[key], populated.options.model.schema, translation)
+      ret = this.toObject(options)
+      translateObject(ret, schema, translation)
+
+      # translate every populated children objects too
+      for key, populated of this.$__.populated
+        translateObject(ret[key], populated.options.model.schema, translation)
 
       return ret
 
@@ -97,7 +98,7 @@ exports = module.exports = (schema, options) ->
       translation = undefined
 
       if options?
-          translation = options.translation
+          translation = options.translation || defaultLanguage
           delete options.translation
 
           # The native Document.prototype.toJSON doesn't like an empty object
@@ -105,14 +106,15 @@ exports = module.exports = (schema, options) ->
           if Object.keys(options).length is 0
               options = undefined
 
-      ret = this.toJSON(options)
-
       if translation?
-        translateObject(ret, schema, translation)
+        translation = defaultLanguage
 
-        # translate every populated children objects too
-        for key, populated of this.$__.populated
-          translateObject(ret[key], populated.options.model.schema, translation)
+      ret = this.toJSON(options)
+      translateObject(ret, schema, translation)
+
+      # translate every populated children objects too
+      for key, populated of this.$__.populated
+        translateObject(ret[key], populated.options.model.schema, translation)
 
       return ret
 
