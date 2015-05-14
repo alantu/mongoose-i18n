@@ -52,15 +52,15 @@ exports = module.exports = (schema, options) ->
 
         if config.options.required
           # if set, only require the default language
-          if options.defaultLanguage? and lang isnt options.defaultLanguage
+          if defaultLanguage? and lang isnt defaultLanguage
             delete obj[lang]['required']
 
         # add the new path to the schema
         schema.add obj, "#{path}."
 
-      if options.defaultLanguage?
+      if defaultLanguage?
         vPath = "#{path}.i18n"
-        defaultPath = "#{path}.#{options.defaultLanguage}"
+        defaultPath = "#{path}.#{defaultLanguage}"
 
         # virtual getter for default language
         schema.virtual(vPath).get ->
@@ -82,7 +82,7 @@ exports = module.exports = (schema, options) ->
           if Object.keys(options).length is 0
               options = undefined
 
-      if translation?
+      if !translation
         translation = defaultLanguage
 
       ret = this.toObject(options)
@@ -106,7 +106,7 @@ exports = module.exports = (schema, options) ->
           if Object.keys(options).length is 0
               options = undefined
 
-      if translation?
+      if !translation
         translation = defaultLanguage
 
       ret = this.toJSON(options)
