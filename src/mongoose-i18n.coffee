@@ -139,6 +139,8 @@ translateObject = (object, schema, translation) ->
 
       if _.isArray(tree)
         tree[index][keys[0]] = tree[index][keys[0]]?[translation] for child, index in tree
+      else if !tree
+        return;
       else
         tree[keys[0]] = tree[keys[0]]?[translation]
 
